@@ -1,0 +1,27 @@
+name: Test
+env:
+  TO_ESM_APP_NAME: "release/to-ansi"
+  GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+
+on:
+  push:
+    branches:
+      - "**"
+    paths-ignore:
+      - "**.md"
+      - ".vscode/**"
+jobs:
+  set-version:
+    runs-on: [self-hosted]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check out Git repository
+        uses: thimpat/to-ansi/.github/actions/checkout@main
+      - name: Install dependencies
+        shell: powershell
+        run: npm install
+      - name: Test
+        shell: powershell
+        run: |
+          npm run lint
+          npm test
