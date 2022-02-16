@@ -1,0 +1,11 @@
+{
+  "name": "to-ansi",
+  "version": "1.0.0",
+  "description": "Convert HTML, RGB or HSL to ANSI",
+  "main": "index.cjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Patrice THIMOTHEE",
+  "license": "MIT"
+}
