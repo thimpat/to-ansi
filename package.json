@@ -9,12 +9,17 @@
   "author": "Patrice THIMOTHEE",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.17.4",
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/commit-analyzer": "^9.0.2",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/npm": "^9.0.0",
     "@semantic-release/release-notes-generator": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "chai": "^4.3.6",
+    "eslint": "^8.9.0",
     "mocha": "^9.2.0",
     "nyc": "^15.1.0",
     "semantic-release": "^19.0.2"
