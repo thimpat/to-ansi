@@ -156,22 +156,5 @@ module.exports.fromHsl = getAnsiFromHsl
 
 module.exports.RESET = RESET
 
-module.exports.STYLE = {
-    Bold     : "\x1b[1m",
-    Underline: "\x1b[4m",
-    Reversed : "\x1b[7m",
-};
+module.exports.STYLE = FONT_STYLE;
 
-// for (let i = 0; i < 16; ++i)
-// {
-//
-//     for (let ii = 0; ii < 16; ++ii)
-//     {
-//         const codeColor = getAnsiFromRgb(i, ii);
-//
-//         // "\x1b[31m"
-//         process.stdout.write(FONT_STYLE.Bold + "Abeilles");
-//         process.stdout.write(RESET);
-//         // print u"\u001b[0m"
-//     }
-// }
