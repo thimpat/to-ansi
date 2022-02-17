@@ -1,7 +1,7 @@
 {
   "name": "to-ansi",
   "version": "1.0.0",
-  "description": "gram",
+  "description": "Convert HTML, RGB or HSL to ANSI",
   "main": "index.cjs",
   "module": "index.mjs",
   "type": "module",
