@@ -29,7 +29,7 @@ const toAnsi = require("to-ansi");
 #### With ESM
 
 ```javascript
-import "toAnsi" from "to-ansi";
+import toAnsi from "to-ansi";
 ```
 
 ---
