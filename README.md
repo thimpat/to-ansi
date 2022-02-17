@@ -1,4 +1,12 @@
 
+[![Test workflow](https://github.com/thimpat/to-ansi/actions/workflows/test.yml/badge.svg)](https://github.com/thimpat/to-ansi/blob/main/README.md)
+[![nycrc Coverage](https://img.shields.io/nycrc/thimpat/to-ansi?preferredThreshold=lines)](https://github.com/thimpat/to-ansi/blob/main/README.md)
+[![Version workflow](https://github.com/thimpat/to-ansi/actions/workflows/versioning.yml/badge.svg)](https://github.com/thimpat/to-ansi/blob/main/README.md)
+[![npm version](https://badge.fury.io/js/to-ansi.svg)](https://www.npmjs.com/package/to-ansi)
+<img alt="semantic-release" src="https://img.shields.io/badge/semantic--release-19.0.2-e10079?logo=semantic-release">
+
+
+
 ## Convert HTML, RGB or HSL to ANSI
 
 ### Installation
