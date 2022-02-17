@@ -15,6 +15,9 @@
 npm install to-ansi
 ```
 
+
+---
+
 ### Usage
 
 #### With commonJs
@@ -29,6 +32,7 @@ const toAnsi = require("to-ansi");
 import "toAnsi" from "to-ansi";
 ```
 
+---
 
 ### Examples
 
@@ -52,7 +56,8 @@ console.log(
 
 ```
 
-> ![](docs/images/example-1.png)
+![](https://github.com/thimpat/to-ansi/blob/main/docs/images/example-1.png)
+
 
 #### Apply colors to the console via the **getText** function (Recommended way)
 
@@ -67,6 +72,6 @@ console.log( toAnsi.getTextFromHex("Hello you!", {fg: "#FFFF00", bg: "#0000FF"})
 console.log( toAnsi.getTextFromHex("Hello you!", {fg: "#FFCCFF", bg: "#DD00FF", isUnderline: true}) );
 ```
 
-> ![img.png](docs/images/example-2.png)
+![img.png](https://github.com/thimpat/to-ansi/blob/main/docs/images/example-2.png)
 
 
