@@ -11,6 +11,14 @@
       "import": "./index.mjs"
     }
   },
+  "keywords": [
+    "color",
+    "convert colors",
+    "colour",
+    "console",
+    "terminal",
+    "productivity"
+  ],
   "scripts": {
     "test": "nyc mocha",
     "build:esm": "to-esm.cmd --input=\"index.cjs\""
