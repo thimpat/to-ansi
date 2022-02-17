@@ -125,7 +125,7 @@ const hslToRgb = ({hue, saturation, lightness}) =>
     };
 };
 
-function getAnsiFromRgb({red, blue, green}, isForeground = true)
+function fromRgb({red, blue, green}, isForeground = true)
 {
     if (red === undefined || blue === undefined || green === undefined)
     {
@@ -138,16 +138,16 @@ function getAnsiFromRgb({red, blue, green}, isForeground = true)
     return `\x1b[${ground};5;` + code + "m ";
 }
 
-function getAnsiFromHex(hexa, isForeground)
+function fromHexa(hexa, isForeground)
 {
     const {red, green, blue} = hexToRgb(hexa);
-    return getAnsiFromRgb({red, green, blue}, isForeground);
+    return fromRgb({red, green, blue}, isForeground);
 }
 
-function getAnsiFromHsl({hue, saturation, lightness}, isForeground)
+function fromHsl({hue, saturation, lightness}, isForeground)
 {
     const {red, green, blue} = hslToRgb({hue, saturation, lightness});
-    return getAnsiFromRgb({red, green, blue}, isForeground);
+    return fromRgb({red, green, blue}, isForeground);
 }
 
 function getTextFromAnsi(text, {
@@ -198,12 +198,12 @@ function getTextFromRgb(text, {
 {
     if (fg)
     {
-        fg = getAnsiFromRgb({...fg});
+        fg = fromRgb({...fg});
     }
 
     if (bg)
     {
-        bg = getAnsiFromRgb({...bg}, false);
+        bg = fromRgb({...bg}, false);
     }
 
     return getTextFromAnsi(text,{fg, bg, isUnderline, isBold, isReversed});
@@ -219,12 +219,12 @@ function getTextFromHsl(text, {
 {
     if (fg)
     {
-        fg = getAnsiFromHsl({...fg});
+        fg = fromHsl({...fg});
     }
 
     if (bg)
     {
-        bg = getAnsiFromHsl({...bg}, false);
+        bg = fromHsl({...bg}, false);
     }
 
     return getTextFromAnsi(text,{fg, bg, isUnderline, isBold, isReversed});
@@ -240,25 +240,24 @@ function getTextFromHex(text, {
 {
     if (fg)
     {
-        fg = getAnsiFromHex(fg);
+        fg = fromHexa(fg);
     }
 
     if (bg)
     {
-        bg = getAnsiFromHex(bg, false);
+        bg = fromHexa(bg, false);
     }
 
     return getTextFromAnsi(text,{fg, bg, isUnderline, isBold, isReversed});
 }
 
-module.exports.getAnsiFromRgb = getAnsiFromRgb
-module.exports.fromRgb = getAnsiFromRgb
-
-module.exports.getAnsiFromHexa = getAnsiFromHex
-module.exports.fromHexa = getAnsiFromHex;
-
-module.exports.getAnsiFromHsl = getAnsiFromHsl
-module.exports.fromHsl = getAnsiFromHsl
+/**
+ * For the conversion with to-esm, the named export and the function to export must use the same identifier.
+ * Otherwise, the conversion will fail.
+ */
+module.exports.fromRgb = fromRgb
+module.exports.fromHexa = fromHexa;
+module.exports.fromHsl = fromHsl
 
 module.exports.getTextFromRgb = getTextFromRgb
 module.exports.getTextFromHsl = getTextFromHsl
@@ -270,5 +269,5 @@ module.exports.hue2rgb = hue2rgb
 
 module.exports.RESET = RESET
 
-module.exports.STYLE = FONT_STYLE;
+module.exports.FONT_STYLE = FONT_STYLE;
 
