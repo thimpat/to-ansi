@@ -17,24 +17,29 @@ npm install to-ansi
 
 ### Usage
 
+#### With commonJs
 
 ```javascript
-
 const toAnsi = require("to-ansi");
+```
 
+#### With ESM
+
+```javascript
+import "toAnsi" from "to-ansi";
 ```
 
 
 ### Examples
 
-#### Convert HTML to ANSI
+#### Convert Hex, RGB and HSL to ANSI
 ```javascript
 toAnsi.fromHexa("#00FF00");                      // => \x1b[38;5;46m 
 toAnsi.fromRgb({red: 0, blue: 0, green: 255})    // => \x1b[38;5;46m 
 toAnsi.fromHsl({hue: 0.5, saturation: 0.5, lightness: 0.5})
 ```
 
-#### Use ANSI in console via **fromHexa** function
+#### Apply colors to the console via the **fromHexa** function
 ```javascript
 console.log(
     toAnsi.fromHexa("#00FF00") +
@@ -49,7 +54,7 @@ console.log(
 
 > ![](docs/images/example-1.png)
 
-#### Use ansi in console via **getText** function
+#### Apply colors to the console via the **getText** function (Recommended way)
 
 ```javascript
 // Yellow
