@@ -251,6 +251,12 @@ function getTextFromHex(text, {
     return getTextFromAnsi(text,{fg, bg, isUnderline, isBold, isReversed});
 }
 
+module.exports = {
+    fromRgb, fromHexa, fromHsl, getTextFromRgb, getTextFromHsl, getTextFromHex,
+    hexToRgb, rgbToAnsi256, hue2rgb, RESET, FONT_STYLE
+}
+
+
 /**
  * For the conversion with to-esm, the named export and the function to export must use the same identifier.
  * Otherwise, the conversion will fail.
