@@ -9,7 +9,7 @@ const FONT_STYLE = {
     Bold     : "\x1b[1m",
     Underline: "\x1b[4m",
     Reversed : "\x1b[7m",
-};
+}
 
 /**
  * @see [Code and original author]
@@ -127,13 +127,18 @@ const hslToRgb = ({hue, saturation, lightness}) =>
 
 function getAnsiFromRgb({red, blue, green}, isForeground = true)
 {
+    if (red === undefined || blue === undefined || green === undefined)
+    {
+        return "";
+    }
+
     const code = rgbToAnsi256(red, blue, green);
 
     let ground = isForeground ? COLOR_TYPE.Foreground : COLOR_TYPE.Background;
     return `\x1b[${ground};5;` + code + "m ";
 }
 
-function getAnsiFromHexa(hexa, isForeground)
+function getAnsiFromHex(hexa, isForeground)
 {
     const {red, green, blue} = hexToRgb(hexa);
     return getAnsiFromRgb({red, green, blue}, isForeground);
@@ -145,14 +150,123 @@ function getAnsiFromHsl({hue, saturation, lightness}, isForeground)
     return getAnsiFromRgb({red, green, blue}, isForeground);
 }
 
-module.exports.getAnsiFromRgb = getAnsiFromRgb;
-module.exports.fromRgb = getAnsiFromRgb;
+function getTextFromAnsi(text, {
+    fg,
+    bg,
+    isUnderline = false,
+    isBold = false,
+    isReversed = false
+})
+{
+    let prefix = ""
+    if (fg)
+    {
+        prefix = prefix + fg;
+    }
 
-module.exports.getAnsiFromHexa = getAnsiFromHexa
-module.exports.fromHexa = getAnsiFromHexa;
+    if (bg)
+    {
+        prefix = prefix + bg;
+    }
+
+    if (isUnderline)
+    {
+        prefix = prefix + FONT_STYLE.Underline;
+    }
+
+    if (isBold)
+    {
+        prefix = prefix + FONT_STYLE.Bold;
+    }
+
+    if (isReversed)
+    {
+        prefix = prefix + FONT_STYLE.Reversed;
+    }
+
+    return prefix + text + RESET;
+}
+
+
+function getTextFromRgb(text, {
+    fg = {},
+    bg = {},
+    isUnderline = false,
+    isBold = false,
+    isReversed = false
+})
+{
+    if (fg)
+    {
+        fg = getAnsiFromRgb({...fg});
+    }
+
+    if (bg)
+    {
+        bg = getAnsiFromRgb({...bg}, false);
+    }
+
+    return getTextFromAnsi(text,{fg, bg, isUnderline, isBold, isReversed});
+}
+
+function getTextFromHsl(text, {
+    fg = "",
+    bg = "",
+    isUnderline = false,
+    isBold = false,
+    isReversed = false
+})
+{
+    if (fg)
+    {
+        fg = getAnsiFromHsl({...fg});
+    }
+
+    if (bg)
+    {
+        bg = getAnsiFromHsl({...bg}, false);
+    }
+
+    return getTextFromAnsi(text,{fg, bg, isUnderline, isBold, isReversed});
+}
+
+function getTextFromHex(text, {
+    fg = "",
+    bg = "",
+    isUnderline = false,
+    isBold = false,
+    isReversed = false
+})
+{
+    if (fg)
+    {
+        fg = getAnsiFromHex(fg);
+    }
+
+    if (bg)
+    {
+        bg = getAnsiFromHex(bg, false);
+    }
+
+    return getTextFromAnsi(text,{fg, bg, isUnderline, isBold, isReversed});
+}
+
+module.exports.getAnsiFromRgb = getAnsiFromRgb
+module.exports.fromRgb = getAnsiFromRgb
+
+module.exports.getAnsiFromHexa = getAnsiFromHex
+module.exports.fromHexa = getAnsiFromHex;
 
 module.exports.getAnsiFromHsl = getAnsiFromHsl
 module.exports.fromHsl = getAnsiFromHsl
+
+module.exports.getTextFromRgb = getTextFromRgb
+module.exports.getTextFromHsl = getTextFromHsl
+module.exports.getTextFromHex = getTextFromHex
+
+module.exports.hexToRgb = hexToRgb
+module.exports.rgbToAnsi256 = rgbToAnsi256
+module.exports.hue2rgb = hue2rgb
 
 module.exports.RESET = RESET
 
