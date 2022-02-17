@@ -166,3 +166,4 @@ dist
 /.babelrc
 /.eslintrc.js
 /.nycrc
+examples/
