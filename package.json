@@ -25,6 +25,11 @@
   },
   "author": "Patrice THIMOTHEE",
   "license": "MIT",
+  "homepage": "https://github.com/thimpat/to-ansi/blob/main/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thimpat/to-ansi.git"
+  },
   "devDependencies": {
     "@babel/core": "^7.17.4",
     "@babel/eslint-parser": "^7.17.0",
