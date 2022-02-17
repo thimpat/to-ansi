@@ -158,3 +158,11 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+/.github/
+/.nyc_output/
+/.run/
+/coverage/
+/test/
+/.babelrc
+/.eslintrc.js
+/.nycrc
