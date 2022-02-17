@@ -165,5 +165,10 @@ dist
 /test/
 /.babelrc
 /.eslintrc.js
+/.eslintrc.cjs
+/.releaserc
+/bump.js
 /.nycrc
 examples/
+docs/
+
