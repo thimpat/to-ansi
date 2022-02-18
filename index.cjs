@@ -11,6 +11,12 @@ const FONT_STYLE = {
     Reversed : "\x1b[7m",
 }
 
+const STYLE = {
+    Bold     : "\x1b[1m",
+    Underline: "\x1b[4m",
+    Reversed : "\x1b[7m",
+}
+
 /**
  * @see [Code and original author]
  *     {@link https://stackoverflow.com/questions/15682537/ansi-color-specific-rgb-sequence-bash}
@@ -253,7 +259,7 @@ function getTextFromHex(text, {
 
 module.exports = {
     fromRgb, fromHexa, fromHsl, getTextFromRgb, getTextFromHsl, getTextFromHex,
-    hexToRgb, rgbToAnsi256, hue2rgb, RESET, FONT_STYLE
+    hexToRgb, rgbToAnsi256, hue2rgb, RESET, FONT_STYLE, STYLE
 }
 
 
@@ -276,4 +282,5 @@ module.exports.hue2rgb = hue2rgb
 module.exports.RESET = RESET
 
 module.exports.FONT_STYLE = FONT_STYLE;
+module.exports.STYLE = STYLE;
 
