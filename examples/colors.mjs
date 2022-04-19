@@ -1,5 +1,10 @@
-const toAnsi = require("../index.mjs");
-console.log(toAnsi.fromHexa("#00FF00"));
+import toAnsi from "../index.mjs";
+
+console.log(toAnsi.fromHexa("#00FF00"), "aaaaaa");
+console.log(toAnsi.fromColor("red"), "Text in red");
+console.log( toAnsi.getTextFromColor("Text in green", {fg: "green"}) );
+
+console.log( toAnsi.getTextFromHex("Hello you!", {fg: "#FFFF00"}) );
 
 console.log( toAnsi.getTextFromHex("Hello you!", {fg: "#FFFF00"}) );
 console.log( toAnsi.getTextFromHex("Hello you!", {fg: "#FFFF00", bg: "#0000FF"}) );
