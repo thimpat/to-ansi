@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "test": "nyc mocha",
-    "build:esm": "to-esm.cmd --input=\"index.cjs\""
+    "build:esm": "to-esm.cmd --input=\"index.cjs\" --config=.to-esm.cjs"
   },
   "author": "Patrice THIMOTHEE",
   "license": "MIT",
@@ -47,5 +47,9 @@
     "nyc": "^15.1.0",
     "semantic-release": "^19.0.2",
     "to-esm": "2.2.0"
+  },
+  "dependencies": {
+    "ansi-escapes": "^4.3.2",
+    "ansi-escapes-cjs": "npm:ansi-escapes@^4.3.2"
   }
 }
