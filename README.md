@@ -7,7 +7,10 @@
 
 
 
-## Convert HTML, RGB or HSL to ANSI
+## Texts colorizer for terminals..
+> 
+> Easily change terminal content style with to-ansi.
+
 
 ### Installation
 
