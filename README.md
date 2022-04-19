@@ -36,10 +36,11 @@ import toAnsi from "to-ansi";
 
 ### Examples
 
-#### Convert Hex, RGB and HSL to ANSI
+#### Convert Hex, RGB, HSL or Color name to ANSI
 ```javascript
 toAnsi.fromHexa("#00FF00");                      // => \x1b[38;5;46m 
 toAnsi.fromRgb({red: 0, blue: 0, green: 255})    // => \x1b[38;5;46m 
+toAnsi.fromColor("green");                       // => \x1b[38;5;46m
 toAnsi.fromHsl({hue: 0.5, saturation: 0.5, lightness: 0.5})
 ```
 
@@ -63,7 +64,7 @@ console.log(
 
 ```javascript
 // Yellow
-console.log( toAnsi.getTextFromHex("Hello you!", {fg: "#FFFF00"}) );
+console.log( toAnsi.getTextFromColor("Hello you!", {fg: "yellow"}) );
 
 // Yellow with blue background
 console.log( toAnsi.getTextFromHex("Hello you!", {fg: "#FFFF00", bg: "#0000FF"}) );
