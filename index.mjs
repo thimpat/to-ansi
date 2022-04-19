@@ -4,25 +4,24 @@
  * [./index.cjs]{@link ./index.cjs}
  * 
  **/    
-import ansiEscapes from "ansi-escapes";
-
 const COLOR_TYPE = {
     Foreground: 38,
     Background: 48,
 };
 
-export const RESET  = "\x1b[0m" + ansiEscapes.cursorBackward(1);
+const backward = "\u001b[1D"
+export const RESET  = "\x1b[0m" + backward;
 
 export const FONT_STYLE  = {
-    Bold     : "\x1b[1m" + ansiEscapes.cursorBackward(1),
-    Underline: "\x1b[4m" + ansiEscapes.cursorBackward(1),
-    Reversed : "\x1b[7m" + ansiEscapes.cursorBackward(1),
+    Bold     : "\x1b[1m" + backward,
+    Underline: "\x1b[4m" + backward,
+    Reversed : "\x1b[7m" + backward,
 }
 
 export const STYLE  = {
-    Bold     : "\x1b[1m" + ansiEscapes.cursorBackward(1),
-    Underline: "\x1b[4m" + ansiEscapes.cursorBackward(1),
-    Reversed : "\x1b[7m" + ansiEscapes.cursorBackward(1),
+    Bold     : "\x1b[1m" + backward,
+    Underline: "\x1b[4m" + backward,
+    Reversed : "\x1b[7m" + backward,
 }
 
 const colors = {
@@ -309,7 +308,7 @@ export function fromRgb ({red, blue, green}, isForeground = true)
     const code = rgbToAnsi256(red, blue, green);
 
     let ground = isForeground ? COLOR_TYPE.Foreground : COLOR_TYPE.Background;
-    return `\x1b[${ground};5;` + code + "m " + ansiEscapes.cursorBackward(1);
+    return `\x1b[${ground};5;` + code + "m " + backward;
 }
 
 export function fromHexa (hexa, isForeground)
