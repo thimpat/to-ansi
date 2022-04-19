@@ -58,7 +58,7 @@ describe("The module", () =>
         it("should return a formatted text for terminal when given rbg colors", function ()
         {
             const result = getTextFromRgb("Hey! you", {fg: {red: 255, green: 0, blue: 0}});
-            expect(result).to.contain("[38;5;196m Hey! you");
+            expect(result).to.contain("[38;5;196m ");
         });
     });
 
@@ -67,7 +67,7 @@ describe("The module", () =>
         it("should return a formatted text for terminal when given hex colors", function ()
         {
             const result = getTextFromHex("Hey! you", {fg: "#00AA00", bg: "#CC4400"});
-            expect(result).to.contain("[48;5;166m Hey! you");
+            expect(result).to.contain("[48;5;166m ");
         });
     });
 
@@ -76,13 +76,13 @@ describe("The module", () =>
         it("should return a formatted text for terminal when given color name", function ()
         {
             const result = getTextFromColor("Hey! you", {fg: "green", bg: "orange"});
-            expect(result).to.contain("[38;5;34m \u001b[48;5;214m Hey! you");
+            expect(result).to.contain("[38;5;34m \u001b[1D\u001b[48;5;214m");
         });
 
         it("should return a formatted text for terminal when given invalid color name", function ()
         {
             const result = getTextFromColor("Hey! you", {fg: "ddd"});
-            expect(result).to.equal("Hey! you\u001b[0m");
+            expect(result).to.equal("Hey! you[0m[1D");
         });
     });
 
@@ -97,7 +97,7 @@ describe("The module", () =>
                 isReversed : true,
                 isBold     : true
             });
-            expect(result).to.contain("[7mOkay");
+            expect(result).to.contain("[38;5;80m \u001b[1D\u001b");
         });
 
     });
