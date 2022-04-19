@@ -164,10 +164,10 @@ dist
 /coverage/
 /test/
 /.babelrc
-/.eslintrc.js
-/.eslintrc.cjs
-/.releaserc
-/bump.js
+.eslintrc.js
+.eslintrc.cjs
+.releaserc
+bump.js
 /.nycrc
 examples/
 docs/

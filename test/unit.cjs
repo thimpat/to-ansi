@@ -1,5 +1,5 @@
 const chai = require("chai");
-const {getTextFromRgb, getTextFromHex, getTextFromHsl, hexToRgb, rgbToAnsi256, hue2rgb} = require("../index.cjs");
+const {getTextFromRgb, getTextFromHex, getTextFromHsl, getTextFromColor, hexToRgb, rgbToAnsi256, hue2rgb} = require("../index.cjs");
 const expect = chai.expect;
 const chaiAlmost = require("chai-almost");
 
@@ -68,6 +68,21 @@ describe("The module", () =>
         {
             const result = getTextFromHex("Hey! you", {fg: "#00AA00", bg: "#CC4400"});
             expect(result).to.contain("[48;5;166m Hey! you");
+        });
+    });
+
+    describe("#getTextFromColor", () =>
+    {
+        it("should return a formatted text for terminal when given color name", function ()
+        {
+            const result = getTextFromColor("Hey! you", {fg: "green", bg: "orange"});
+            expect(result).to.contain("[38;5;34m \u001b[48;5;214m Hey! you");
+        });
+
+        it("should return a formatted text for terminal when given invalid color name", function ()
+        {
+            const result = getTextFromColor("Hey! you", {fg: "ddd"});
+            expect(result).to.equal("Hey! you\u001b[0m");
         });
     });
 
