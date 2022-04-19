@@ -39,8 +39,6 @@
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/npm": "^9.0.0",
     "@semantic-release/release-notes-generator": "^10.0.3",
-    "ansi-escapes": "^4.3.2",
-    "ansi-escapes-cjs": "npm:ansi-escapes@^4.3.2",
     "babel-eslint": "^10.1.0",
     "chai": "^4.3.6",
     "chai-almost": "^1.0.1",
