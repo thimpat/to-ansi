@@ -4,6 +4,44 @@
  * [./index.cjs]{@link ./index.cjs}
  * 
  **/    
+/**
+ * Colorizer for terminals
+ * @author Patrice Thimothee
+ * @licence MIT
+ */
+
+// ----------------------------------------
+// Types
+// ----------------------------------------
+/**
+ * @typedef {Object} RGBType
+ * @property {number} red
+ * @property {number} green
+ * @property {number} blue
+ */
+
+/**
+ * @typedef {Object} HSLType
+ * @property {number} hue
+ * @property {number} lightness
+ * @property {number} saturation
+ */
+
+/**
+ * Return colorized text based on given value
+ * @typedef {Object} ColorPropType
+ * @property {string|RGBType|HSLType} [fg] colourName Actual name color (i.e. orange, yellow), color code (#00F00F), or
+ * color object
+ * (rgb, hsl)
+ * @property {string|RGBType|HSLType} [bg] colourName Actual name color (i.e. orange, yellow) or color code (#00F00F)
+ * @property {boolean|null} [isUnderline]
+ * @property {boolean|null} [isBold]
+ * @property {boolean|null} [isReversed]
+ */
+
+// ----------------------------------------
+// Constants
+// ----------------------------------------
 const COLOR_TYPE = {
     Foreground: 38,
     Background: 48,
@@ -168,12 +206,25 @@ const colors = {
     "yellowgreen"         : "#9acd32"
 };
 
+// ----------------------------------------
+// Functions
+// ----------------------------------------
+/**
+ * Returns whether a color name is supported
+ * @param colourName
+ * @returns {boolean}
+ */
+function isLiteralColor(colourName)
+{
+    return !!colors[colourName]
+}
+
 /**
  * @see [Code and original author]
  *     {@link https://stackoverflow.com/questions/15682537/ansi-color-specific-rgb-sequence-bash}
- * @param red
- * @param green
- * @param blue
+ * @param {number} red
+ * @param {number} green
+ * @param {number} blue
  * @returns {number}
  */
 export const rgbToAnsi256  = (red, green, blue) =>
@@ -252,11 +303,8 @@ export const hue2rgb  = function hue2rgb(p, q, t)
  * Assumes h, s, and l are contained in the set [0, 1] and
  * returns r, g, and b in the set [0, 255].
  * @see [Original code and author] {@link https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion}
- *
- * @param   {number}  hue       The hue
- * @param   {number}  saturation       The saturation
- * @param   {number}  lightness       The lightness
- * @return  {Array}           The RGB representation
+ * @param {HSLType}
+ * @return {Array}           The RGB representation
  */
 const hslToRgb = ({hue, saturation, lightness}) =>
 {
@@ -284,10 +332,10 @@ const hslToRgb = ({hue, saturation, lightness}) =>
 
 /**
  * @see https://stackoverflow.com/questions/1573053/javascript-function-to-convert-color-names-to-hex-codes
- * @param colour
+ * @param {string} colour
  * @returns {boolean|*}
  */
-const colourNameToHex = (colour) =>
+export const colourNameToHex  = (colour) =>
 {
     const colorName = colour.toLowerCase()
     if (typeof colors[colorName] != 'undefined')
@@ -295,9 +343,15 @@ const colourNameToHex = (colour) =>
         return colors[colorName];
     }
 
-    return false;
+    return "";
 }
 
+/**
+ * Returns ANSI code for given RGB color
+ * @param {RGBType}
+ * @param {boolean} isForeground
+ * @returns {string}
+ */
 export function fromRgb ({red, blue, green}, isForeground = true)
 {
     if (red === undefined || blue === undefined || green === undefined)
@@ -311,26 +365,91 @@ export function fromRgb ({red, blue, green}, isForeground = true)
     return `\x1b[${ground};5;` + code + "m " + backward;
 }
 
-export function fromHexa (hexa, isForeground)
+/**
+ * Returns ANSI code for given hexadecimal color
+ * @param {string} hexa
+ * @param {boolean} isForeground
+ * @returns {string}
+ */
+export function fromHexa (hexa, isForeground = true)
 {
     const {red, green, blue} = hexToRgb(hexa);
     return fromRgb({red, green, blue}, isForeground);
 }
 
+/**
+ * Returns ANSI code for given HSL color
+ * @param {HSLType}
+ * @param {boolean} isForeground
+ * @returns {string}
+ */
 export function fromHsl ({hue, saturation, lightness}, isForeground)
 {
     const {red, green, blue} = hslToRgb({hue, saturation, lightness});
     return fromRgb({red, green, blue}, isForeground);
 }
 
-export function fromColor (colourName, isForeground)
+/**
+ * Return ANSI code color for a given value
+ * @param {string|Object} okayColor Actual name color (i.e. orange, yellow) or color code (#00F00F)
+ * @param isForeground
+ * @returns {string}
+ */
+export function fromColor (okayColor, isForeground = true)
 {
-    let hexa = colourNameToHex(colourName);
-    if (!hexa)
+    try
     {
-        return ""
+        let hexa;
+        okayColor = okayColor || ""
+
+        if (!okayColor)
+        {
+            return "";
+        }
+
+        if (typeof okayColor === 'string' || okayColor instanceof String)
+        {
+            okayColor = okayColor.trim()
+        }
+
+        // Color name
+        if (isLiteralColor(okayColor))
+        {
+            hexa = colourNameToHex(okayColor);
+            return fromHexa(hexa, isForeground);
+        }
+        // RGB
+        else if (
+            typeof okayColor === 'object' && !!okayColor.red && !!okayColor.blue && !!okayColor.green
+        )
+        {
+            return fromRgb(okayColor, isForeground);
+        }
+        // HSL
+        else if (
+            typeof okayColor === 'object' && !!okayColor.hue && !!okayColor.saturation && !!okayColor.lightness
+        )
+        {
+            return fromHsl(okayColor, isForeground);
+        }
+        else if (okayColor.startsWith("#"))
+        {
+            return fromHexa(okayColor, isForeground);
+        }
+
+        okayColor = okayColor.toString()
+        if (!/^[\da-fA-F]+$/.test(okayColor))
+        {
+            return ""
+        }
+
+        return fromHexa("#" + okayColor, isForeground);
     }
-    return fromHexa(hexa, isForeground);
+    catch (e)
+    {
+        /* istanbul ignore next */
+        console.error("TO_ANSI_INVALID_ARGUMENT_ERROR", e.message)
+    }
 }
 
 function getTextFromAnsi(text, {
@@ -341,30 +460,42 @@ function getTextFromAnsi(text, {
     isReversed = false
 })
 {
+    let modified = false;
+
     let prefix = ""
     if (fg)
     {
+        modified = true;
         prefix = prefix + fg;
     }
 
     if (bg)
     {
+        modified = true;
         prefix = prefix + bg;
     }
 
     if (isUnderline)
     {
+        modified = true;
         prefix = prefix + FONT_STYLE.Underline;
     }
 
     if (isBold)
     {
+        modified = true;
         prefix = prefix + FONT_STYLE.Bold;
     }
 
     if (isReversed)
     {
+        modified = true;
         prefix = prefix + FONT_STYLE.Reversed;
+    }
+
+    if (!modified)
+    {
+        return text;
     }
 
     return prefix + text + RESET;
@@ -434,14 +565,27 @@ export function getTextFromHex (text, {
     return getTextFromAnsi(text, {fg, bg, isUnderline, isBold, isReversed});
 }
 
-export function getTextFromColor (text, {
-    fg = "",
-    bg = "",
-    isUnderline = false,
-    isBold = false,
-    isReversed = false
-})
+/**
+ * Return colorized text based on given value
+ * @param text
+ * @param {ColorPropType} props
+ * @returns {string}
+ */
+export function getTextFromColor (text, props = null)
 {
+    if (!props)
+    {
+        return text;
+    }
+
+    let {
+        fg = "",
+            bg = "",
+            isUnderline = false,
+            isBold = false,
+            isReversed = false
+    } = props;
+
     if (fg)
     {
         fg = fromColor(fg);
@@ -455,12 +599,14 @@ export function getTextFromColor (text, {
     return getTextFromAnsi(text, {fg, bg, isUnderline, isBold, isReversed});
 }
 
+// ----------------------------------------
+// Exports
+// ----------------------------------------
 export default {
     fromRgb, fromHexa, fromHsl, fromColor,
     getTextFromRgb, getTextFromHsl, getTextFromHex, getTextFromColor,
     hexToRgb, rgbToAnsi256, hue2rgb, RESET, FONT_STYLE, STYLE
 }
-
 
 /**
  * For the conversion with to-esm, the named export and the function to export must use the same identifier.
