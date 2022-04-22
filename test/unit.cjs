@@ -1,5 +1,8 @@
 const chai = require("chai");
-const {getTextFromRgb, getTextFromHex, getTextFromHsl, getTextFromColor, hexToRgb, rgbToAnsi256, hue2rgb} = require("../index.cjs");
+const {
+    getTextFromRgb, getTextFromHex, getTextFromHsl, getTextFromColor,
+    hexToRgb, rgbToAnsi256, hue2rgb, colourNameToHex, fromColor
+} = require("../index.cjs");
 const expect = chai.expect;
 const chaiAlmost = require("chai-almost");
 
@@ -44,6 +47,21 @@ describe("The module", () =>
         });
     });
 
+    describe("#colourNameToHex", () =>
+    {
+        it("should return some html code when a color name is given", function ()
+        {
+            const result = colourNameToHex("green");
+            expect(result).to.equal("#008000");
+        });
+
+        it("should return an empty string when an unknown color name is given", function ()
+        {
+            const result = colourNameToHex("lorga");
+            expect(result).to.be.empty;
+        });
+    });
+
     describe("#hexToRgb", () =>
     {
         it("should return rgb white when hex is white", function ()
@@ -71,6 +89,20 @@ describe("The module", () =>
         });
     });
 
+    describe("#fromColor", () =>
+    {
+        it("should return an empty string when given an empty value", function ()
+        {
+            const result = fromColor("");
+            expect(result).to.equal("");
+        });
+        it("should return an empty string when given an empty value", function ()
+        {
+            const result = fromColor("");
+            expect(result).to.equal("");
+        });
+    });
+
     describe("#getTextFromColor", () =>
     {
         it("should return a formatted text for terminal when given color name", function ()
@@ -79,10 +111,46 @@ describe("The module", () =>
             expect(result).to.contain("[38;5;34m \u001b[1D\u001b[48;5;214m");
         });
 
-        it("should return a formatted text for terminal when given invalid color name", function ()
+        it("should return a formatted text for terminal when given an HTML color code", function ()
         {
-            const result = getTextFromColor("Hey! you", {fg: "ddd"});
-            expect(result).to.equal("Hey! you[0m[1D");
+            const result = getTextFromColor("Hey! you", {fg: "#878787"});
+            expect(result).to.contain("\u001b[38;5;244m \u001b[1");
+        });
+
+        it("should return a formatted text for terminal when given an RGB color code", function ()
+        {
+            const result = getTextFromColor("Hey! you", {fg: {red: 30, green: 20, blue: 40}});
+            expect(result).to.contain("\u001b[38;5;58m \u001b[1D");
+        });
+
+        it("should return a formatted text for terminal when given an RGB color code without prefix with a hash", function ()
+        {
+            const result = getTextFromColor("Hey! you", {fg: "00ff00"});
+            expect(result).to.contain("\u001b[38;5;46m \u001b[1D");
+        });
+
+        it("should return a formatted text for terminal when given an HSL color code", function ()
+        {
+            const result = getTextFromColor("Hey! you", {fg: {hue: 0.5, saturation: 0.5, lightness: 0.5}});
+            expect(result).to.contain("\u001b[38;5;80m \u001b[1D");
+        });
+
+        it("should return the same text when missing the color argument", function ()
+        {
+            const result = getTextFromColor("Hey! you");
+            expect(result).to.contain("Hey! you");
+        });
+
+        it("should return the same text when given an empty color code", function ()
+        {
+            const result = getTextFromColor("Hey! you", {fg: ""});
+            expect(result).to.equal("Hey! you");
+        });
+
+        it("should return the same text when given invalid color name", function ()
+        {
+            const result = getTextFromColor("Hey! you", {fg: "zzzasd"});
+            expect(result).to.equal("Hey! you");
         });
     });
 
