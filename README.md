@@ -79,6 +79,9 @@ console.log( toAnsi.getTextFromHex("Hello you!", {fg: "#FFCCFF", bg: "#DD00FF", 
 ![img.png](https://github.com/thimpat/to-ansi/blob/main/docs/images/example-2.png)
 
 
+<br/>
+---
+
 ### getTextFromColor
 
 All call below are valid 
@@ -86,5 +89,6 @@ All call below are valid
 toAnsi.getTextFromColor("Hello you!", {fg: "red"})
 toAnsi.getTextFromColor("Hello you!", {fg: "#FF0000"})
 toAnsi.getTextFromColor("Hello you!", {fg: {red: 255, green: 0, blue: 0}})
-toAnsi.getTextFromColor("Hello you!", {fg: {hue: 0.5, saturation: 0.5, lightness: 0.5}})
+toAnsi.getTextFromColor("Hello you!", {fg: {hue: 0, saturation: 1, lightness: 0.5}})
 ```
+<br/>
