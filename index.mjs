@@ -272,6 +272,19 @@ export const hexToRgb  = (hex) =>
     } : {};
 };
 
+/**
+ * @see [Code and original author {@link https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb]
+ * @param red
+ * @param green
+ * @param blue
+ * @returns {string}
+ */
+export const rgbToHex  = function ({red, green, blue})
+{
+    const rgb = (red << 16) | (green << 8) | (blue << 0);
+    return '#' + (0x1000000 + rgb).toString(16).slice(1);
+}
+
 export const hue2rgb  = function hue2rgb(p, q, t)
 {
     if (t < 0)
@@ -306,7 +319,7 @@ export const hue2rgb  = function hue2rgb(p, q, t)
  * @param {HSLType}
  * @return {Array}           The RGB representation
  */
-const hslToRgb = ({hue, saturation, lightness}) =>
+export const hslToRgb  = ({hue, saturation, lightness}) =>
 {
     let r, g, b;
 
@@ -335,7 +348,7 @@ const hslToRgb = ({hue, saturation, lightness}) =>
  * @param {string} colour
  * @returns {boolean|*}
  */
-export const colourNameToHex  = (colour) =>
+export const colorNameToHex  = (colour) =>
 {
     const colorName = colour.toLowerCase()
     if (typeof colors[colorName] != 'undefined')
@@ -415,7 +428,7 @@ export function fromColor (okayColor, isForeground = true)
         // Color name
         if (isLiteralColor(okayColor))
         {
-            hexa = colourNameToHex(okayColor);
+            hexa = colorNameToHex(okayColor);
             return fromHexa(hexa, isForeground);
         }
         // RGB
@@ -580,10 +593,10 @@ export function getTextFromColor (text, props = null)
 
     let {
         fg = "",
-            bg = "",
-            isUnderline = false,
-            isBold = false,
-            isReversed = false
+        bg = "",
+        isUnderline = false,
+        isBold = false,
+        isReversed = false
     } = props;
 
     if (fg)
@@ -605,13 +618,26 @@ export function getTextFromColor (text, props = null)
 export default {
     fromRgb, fromHexa, fromHsl, fromColor,
     getTextFromRgb, getTextFromHsl, getTextFromHex, getTextFromColor,
-    hexToRgb, rgbToAnsi256, hue2rgb, RESET, FONT_STYLE, STYLE
+    hslToRgb, hexToRgb, rgbToHex, rgbToAnsi256, hue2rgb, RESET, FONT_STYLE, STYLE
 }
 
 /**
  * For the conversion with to-esm, the named export and the function to export must use the same identifier.
  * Otherwise, the conversion will fail.
  */
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
