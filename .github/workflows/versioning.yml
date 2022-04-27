@@ -23,4 +23,5 @@ jobs:
         shell: powershell
         run: |
           npm test
+          npm build:esm
           npx semantic-release
