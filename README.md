@@ -50,12 +50,12 @@ toAnsi.fromHsl({hue: 0.5, saturation: 0.5, lightness: 0.5})
 #### Apply colors to the console via the **fromHexa** function
 ```javascript
 console.log(
-    toAnsi.fromHexa("#00FF00") +
-    toAnsi.fromHexa("#FF0000", false) +
-    toAnsi.STYLE.Underline +
-    toAnsi.STYLE.Bold +
-    "Okay" +
-    toAnsi.RESET
+    toAnsi.fromHexa("#00FF00") +                        // Green text
+    toAnsi.fromHexa("#FF0000", false) +                 // Red background (false = background)
+    toAnsi.STYLE.Underline +                            // Underline text
+    toAnsi.STYLE.Bold +                                 // Bold text
+    "Okay" +                                            // Text to display
+    toAnsi.RESET                                        
 );
 
 ```
