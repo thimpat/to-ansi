@@ -1,7 +1,7 @@
 const chai = require("chai");
 const {
     getTextFromRgb, getTextFromHex, getTextFromHsl, getTextFromColor,
-    hexToRgb, rgbToAnsi256, hue2rgb, colourNameToHex, fromColor
+    hexToRgb, rgbToHex, rgbToAnsi256, hue2rgb, colorNameToHex, fromColor
 } = require("../index.cjs");
 const expect = chai.expect;
 const chaiAlmost = require("chai-almost");
@@ -47,17 +47,17 @@ describe("The module", () =>
         });
     });
 
-    describe("#colourNameToHex", () =>
+    describe("#colorNameToHex", () =>
     {
         it("should return some html code when a color name is given", function ()
         {
-            const result = colourNameToHex("green");
+            const result = colorNameToHex("green");
             expect(result).to.equal("#008000");
         });
 
         it("should return an empty string when an unknown color name is given", function ()
         {
-            const result = colourNameToHex("lorga");
+            const result = colorNameToHex("lorga");
             expect(result).to.be.empty;
         });
     });
@@ -68,6 +68,15 @@ describe("The module", () =>
         {
             const result = hexToRgb("#fff");
             expect(result).to.deep.equal({red: 255, blue: 255, green: 255});
+        });
+    });
+
+    describe("#rgbToHex", () =>
+    {
+        it("should return rgb white when hex is white", function ()
+        {
+            const result = rgbToHex({red: 255, blue: 255, green: 255});
+            expect(result).to.equal("#ffffff");
         });
     });
 
