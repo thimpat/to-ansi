@@ -92,3 +92,21 @@ toAnsi.getTextFromColor("Hello you!", {fg: {red: 255, green: 0, blue: 0}})
 toAnsi.getTextFromColor("Hello you!", {fg: {hue: 0, saturation: 1, lightness: 0.5}})
 ```
 <br/>
+
+---
+
+### Utility functions
+
+```javascript
+// Convert rgb to Hex
+toAnsi.rgbToHex({red: 255, blue: 255, green: 255})
+
+// Convert Hex to RGB
+toAnsi.hexToRgb("#fff");
+
+// Convert HSL to RGB
+toAnsi.hslToRgb({hue: 0, saturation: 1, lightness: 0.5});
+
+// Convert color name to Hex
+toAnsi.colorNameToHex("red");
+```
