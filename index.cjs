@@ -266,6 +266,19 @@ const hexToRgb = (hex) =>
     } : {};
 };
 
+/**
+ * @see [Code and original author {@link https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb]
+ * @param red
+ * @param green
+ * @param blue
+ * @returns {string}
+ */
+const rgbToHex = function ({red, green, blue})
+{
+    const rgb = (red << 16) | (green << 8) | (blue << 0);
+    return '#' + (0x1000000 + rgb).toString(16).slice(1);
+}
+
 const hue2rgb = function hue2rgb(p, q, t)
 {
     if (t < 0)
@@ -329,7 +342,7 @@ const hslToRgb = ({hue, saturation, lightness}) =>
  * @param {string} colour
  * @returns {boolean|*}
  */
-const colourNameToHex = (colour) =>
+const colorNameToHex = (colour) =>
 {
     const colorName = colour.toLowerCase()
     if (typeof colors[colorName] != 'undefined')
@@ -409,7 +422,7 @@ function fromColor(okayColor, isForeground = true)
         // Color name
         if (isLiteralColor(okayColor))
         {
-            hexa = colourNameToHex(okayColor);
+            hexa = colorNameToHex(okayColor);
             return fromHexa(hexa, isForeground);
         }
         // RGB
@@ -574,10 +587,10 @@ function getTextFromColor(text, props = null)
 
     let {
         fg = "",
-            bg = "",
-            isUnderline = false,
-            isBold = false,
-            isReversed = false
+        bg = "",
+        isUnderline = false,
+        isBold = false,
+        isReversed = false
     } = props;
 
     if (fg)
@@ -599,30 +612,32 @@ function getTextFromColor(text, props = null)
 module.exports = {
     fromRgb, fromHexa, fromHsl, fromColor,
     getTextFromRgb, getTextFromHsl, getTextFromHex, getTextFromColor,
-    hexToRgb, rgbToAnsi256, hue2rgb, RESET, FONT_STYLE, STYLE
+    hslToRgb, hexToRgb, rgbToHex, rgbToAnsi256, hue2rgb, RESET, FONT_STYLE, STYLE
 }
 
 /**
  * For the conversion with to-esm, the named export and the function to export must use the same identifier.
  * Otherwise, the conversion will fail.
  */
-module.exports.colourNameToHex = colourNameToHex
+module.exports.colorNameToHex = colorNameToHex
 
 module.exports.fromRgb = fromRgb
 module.exports.fromHexa = fromHexa;
 module.exports.fromHsl = fromHsl;
 module.exports.fromColor = fromColor;
 
-module.exports.getTextFromRgb = getTextFromRgb
-module.exports.getTextFromHsl = getTextFromHsl
-module.exports.getTextFromHex = getTextFromHex
-module.exports.getTextFromColor = getTextFromColor
+module.exports.getTextFromRgb = getTextFromRgb;
+module.exports.getTextFromHsl = getTextFromHsl;
+module.exports.getTextFromHex = getTextFromHex;
+module.exports.getTextFromColor = getTextFromColor;
 
-module.exports.hexToRgb = hexToRgb
-module.exports.rgbToAnsi256 = rgbToAnsi256
-module.exports.hue2rgb = hue2rgb
+module.exports.hexToRgb = hexToRgb;
+module.exports.rgbToHex = rgbToHex;
+module.exports.rgbToAnsi256 = rgbToAnsi256;
+module.exports.hue2rgb = hue2rgb;
+module.exports.hslToRgb = hslToRgb;
 
-module.exports.RESET = RESET
+module.exports.RESET = RESET;
 
 module.exports.FONT_STYLE = FONT_STYLE;
 module.exports.STYLE = STYLE;

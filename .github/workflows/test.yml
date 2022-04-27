@@ -24,4 +24,5 @@ jobs:
         shell: powershell
         run: |
           npm run lint
+          npm build:esm
           npm test
