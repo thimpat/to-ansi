@@ -289,7 +289,7 @@ export const rgbStringToRgb  = function (rgbString)
 {
     const matches = rgbString.matchAll(/\d+/g);
     const rgbArray = [];
-    for (match of matches)
+    for (const match of matches)
     {
         const color = parseInt(match[0]);
         if (color > 255)
