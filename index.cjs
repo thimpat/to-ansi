@@ -277,7 +277,40 @@ const rgbToHex = function ({red, green, blue})
 {
     const rgb = (red << 16) | (green << 8) | (blue << 0);
     return '#' + (0x1000000 + rgb).toString(16).slice(1);
-}
+};
+
+const rgbStringToRgb = function (rgbString)
+{
+    const matches = rgbString.matchAll(/\d+/g);
+    const rgbArray = [];
+    for (match of matches)
+    {
+        const color = parseInt(match[0]);
+        if (color > 255)
+        {
+            return null;
+        }
+        rgbArray.push(color);
+    }
+
+    if (rgbArray.length !== 3)
+    {
+        return null;
+    }
+
+    return {red: rgbArray[0], green: rgbArray[1],  blue: rgbArray[2]}
+};
+
+const rgbStringToHex = function (rgbString)
+{
+    const rgb = rgbStringToRgb(rgbString);
+    if (!rgb)
+    {
+        return rgb;
+    }
+
+    return rgbToHex(rgb);
+};
 
 const hue2rgb = function hue2rgb(p, q, t)
 {
@@ -612,7 +645,7 @@ function getTextFromColor(text, props = null)
 module.exports = {
     fromRgb, fromHexa, fromHsl, fromColor,
     getTextFromRgb, getTextFromHsl, getTextFromHex, getTextFromColor,
-    hslToRgb, hexToRgb, rgbToHex, rgbToAnsi256, hue2rgb, RESET, FONT_STYLE, STYLE
+    hslToRgb, hexToRgb, rgbToHex, rgbToAnsi256, rgbStringToRgb, rgbStringToHex, hue2rgb, RESET, FONT_STYLE, STYLE
 }
 
 /**
@@ -636,6 +669,9 @@ module.exports.rgbToHex = rgbToHex;
 module.exports.rgbToAnsi256 = rgbToAnsi256;
 module.exports.hue2rgb = hue2rgb;
 module.exports.hslToRgb = hslToRgb;
+
+module.exports.rgbStringToRgb = rgbStringToRgb;
+module.exports.rgbStringToHex = rgbStringToHex;
 
 module.exports.RESET = RESET;
 
