@@ -651,33 +651,10 @@ export function getTextFromColor (text, props = null)
 export default {
     fromRgb, fromHexa, fromHsl, fromColor,
     getTextFromRgb, getTextFromHsl, getTextFromHex, getTextFromColor,
-    hslToRgb, hexToRgb, rgbToHex, rgbToAnsi256, rgbStringToRgb, rgbStringToHex, hue2rgb, RESET, FONT_STYLE, STYLE
+    colorNameToHex, hslToRgb, hexToRgb, rgbToHex, rgbToAnsi256, rgbStringToRgb, rgbStringToHex, hue2rgb, RESET, FONT_STYLE, STYLE
 }
 
 /**
  * For the conversion with to-esm, the named export and the function to export must use the same identifier.
  * Otherwise, the conversion will fail.
  */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
