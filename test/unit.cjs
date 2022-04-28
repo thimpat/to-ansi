@@ -1,7 +1,7 @@
 const chai = require("chai");
 const {
     getTextFromRgb, getTextFromHex, getTextFromHsl, getTextFromColor,
-    hexToRgb, rgbToHex, rgbToAnsi256, hue2rgb, colorNameToHex, fromColor
+    hexToRgb, rgbToHex, rgbToAnsi256, rgbStringToRgb, rgbStringToHex, hue2rgb, colorNameToHex, fromColor
 } = require("../index.cjs");
 const expect = chai.expect;
 const chaiAlmost = require("chai-almost");
@@ -73,12 +73,48 @@ describe("The module", () =>
 
     describe("#rgbToHex", () =>
     {
-        it("should return rgb white when hex is white", function ()
+        it("should return white color when rgb is white", function ()
         {
             const result = rgbToHex({red: 255, blue: 255, green: 255});
             expect(result).to.equal("#ffffff");
         });
     });
+
+    describe("#rgbStringToRgb", () =>
+    {
+        it("should return rgb code when input is a string", function ()
+        {
+            const result = rgbStringToRgb("rgb(0, 15, 255)");
+            expect(result).to.deep.equal({red: 0, green: 15, blue: 255});
+        });
+
+        it("should return null when one of the color level is superior to 255", function ()
+        {
+            const result = rgbStringToRgb("rgb(0, 15, 300)");
+            expect(result).to.be.null;
+        });
+
+        it("should return null when the input has more than 3 values", function ()
+        {
+            const result = rgbStringToRgb("rgb(0, 15, 25, 21)");
+            expect(result).to.be.null;
+        });
+    });
+
+    describe("#rgbStringToHex", () =>
+    {
+        it("should return rgb code when input is a string", function ()
+        {
+            const result = rgbStringToHex("rgb(0, 15, 255)");
+            expect(result).to.equal("#000fff");
+        });
+
+        it("should return null when one of the color level is superior to 255", function ()
+        {
+            const result = rgbStringToHex("rgb(0, 15, 300)");
+            expect(result).to.be.null;
+        });
+     });
 
     describe("#getTextFromRgb", () =>
     {
