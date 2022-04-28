@@ -645,15 +645,13 @@ function getTextFromColor(text, props = null)
 module.exports = {
     fromRgb, fromHexa, fromHsl, fromColor,
     getTextFromRgb, getTextFromHsl, getTextFromHex, getTextFromColor,
-    hslToRgb, hexToRgb, rgbToHex, rgbToAnsi256, rgbStringToRgb, rgbStringToHex, hue2rgb, RESET, FONT_STYLE, STYLE
+    colorNameToHex, hslToRgb, hexToRgb, rgbToHex, rgbToAnsi256, rgbStringToRgb, rgbStringToHex, hue2rgb, RESET, FONT_STYLE, STYLE
 }
 
 /**
  * For the conversion with to-esm, the named export and the function to export must use the same identifier.
  * Otherwise, the conversion will fail.
  */
-module.exports.colorNameToHex = colorNameToHex
-
 module.exports.fromRgb = fromRgb
 module.exports.fromHexa = fromHexa;
 module.exports.fromHsl = fromHsl;
@@ -663,6 +661,7 @@ module.exports.getTextFromRgb = getTextFromRgb;
 module.exports.getTextFromHsl = getTextFromHsl;
 module.exports.getTextFromHex = getTextFromHex;
 module.exports.getTextFromColor = getTextFromColor;
+module.exports.colorNameToHex = colorNameToHex
 
 module.exports.hexToRgb = hexToRgb;
 module.exports.rgbToHex = rgbToHex;
