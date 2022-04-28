@@ -1,6 +1,6 @@
 {
   "name": "to-ansi",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Convert HTML, RGB or HSL to ANSI",
   "main": "index.cjs",
   "module": "index.mjs",
