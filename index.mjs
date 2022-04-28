@@ -3,7 +3,7 @@
  * This file is generated following the conversion of 
  * [./index.cjs]{@link ./index.cjs}
  * 
- **/    
+ **/
 /**
  * Colorizer for terminals
  * @author Patrice Thimothee
@@ -398,7 +398,7 @@ export const colorNameToHex  = (colour) =>
  * @param {boolean} isForeground
  * @returns {string}
  */
-export function fromRgb ({red, blue, green}, isForeground = true)
+export function  fromRgb ({red, blue, green}, isForeground = true)
 {
     if (red === undefined || blue === undefined || green === undefined)
     {
@@ -417,7 +417,7 @@ export function fromRgb ({red, blue, green}, isForeground = true)
  * @param {boolean} isForeground
  * @returns {string}
  */
-export function fromHexa (hexa, isForeground = true)
+export function  fromHexa (hexa, isForeground = true)
 {
     const {red, green, blue} = hexToRgb(hexa);
     return fromRgb({red, green, blue}, isForeground);
@@ -429,7 +429,7 @@ export function fromHexa (hexa, isForeground = true)
  * @param {boolean} isForeground
  * @returns {string}
  */
-export function fromHsl ({hue, saturation, lightness}, isForeground)
+export function  fromHsl ({hue, saturation, lightness}, isForeground)
 {
     const {red, green, blue} = hslToRgb({hue, saturation, lightness});
     return fromRgb({red, green, blue}, isForeground);
@@ -441,7 +441,7 @@ export function fromHsl ({hue, saturation, lightness}, isForeground)
  * @param isForeground
  * @returns {string}
  */
-export function fromColor (okayColor, isForeground = true)
+export function  fromColor (okayColor, isForeground = true)
 {
     try
     {
@@ -548,7 +548,7 @@ function getTextFromAnsi(text, {
 }
 
 
-export function getTextFromRgb (text, {
+export function  getTextFromRgb (text, {
     fg = {},
     bg = {},
     isUnderline = false,
@@ -569,7 +569,7 @@ export function getTextFromRgb (text, {
     return getTextFromAnsi(text, {fg, bg, isUnderline, isBold, isReversed});
 }
 
-export function getTextFromHsl (text, {
+export function  getTextFromHsl (text, {
     fg = "",
     bg = "",
     isUnderline = false,
@@ -590,7 +590,7 @@ export function getTextFromHsl (text, {
     return getTextFromAnsi(text, {fg, bg, isUnderline, isBold, isReversed});
 }
 
-export function getTextFromHex (text, {
+export function  getTextFromHex (text, {
     fg = "",
     bg = "",
     isUnderline = false,
@@ -617,7 +617,7 @@ export function getTextFromHex (text, {
  * @param {ColorPropType} props
  * @returns {string}
  */
-export function getTextFromColor (text, props = null)
+export function  getTextFromColor (text, props = null)
 {
     if (!props)
     {
@@ -658,3 +658,25 @@ export default {
  * For the conversion with to-esm, the named export and the function to export must use the same identifier.
  * Otherwise, the conversion will fail.
  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
