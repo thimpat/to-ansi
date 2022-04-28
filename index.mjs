@@ -283,7 +283,40 @@ export const rgbToHex  = function ({red, green, blue})
 {
     const rgb = (red << 16) | (green << 8) | (blue << 0);
     return '#' + (0x1000000 + rgb).toString(16).slice(1);
-}
+};
+
+export const rgbStringToRgb  = function (rgbString)
+{
+    const matches = rgbString.matchAll(/\d+/g);
+    const rgbArray = [];
+    for (match of matches)
+    {
+        const color = parseInt(match[0]);
+        if (color > 255)
+        {
+            return null;
+        }
+        rgbArray.push(color);
+    }
+
+    if (rgbArray.length !== 3)
+    {
+        return null;
+    }
+
+    return {red: rgbArray[0], green: rgbArray[1],  blue: rgbArray[2]}
+};
+
+export const rgbStringToHex  = function (rgbString)
+{
+    const rgb = rgbStringToRgb(rgbString);
+    if (!rgb)
+    {
+        return rgb;
+    }
+
+    return rgbToHex(rgb);
+};
 
 export const hue2rgb  = function hue2rgb(p, q, t)
 {
@@ -618,13 +651,16 @@ export function getTextFromColor (text, props = null)
 export default {
     fromRgb, fromHexa, fromHsl, fromColor,
     getTextFromRgb, getTextFromHsl, getTextFromHex, getTextFromColor,
-    hslToRgb, hexToRgb, rgbToHex, rgbToAnsi256, hue2rgb, RESET, FONT_STYLE, STYLE
+    hslToRgb, hexToRgb, rgbToHex, rgbToAnsi256, rgbStringToRgb, rgbStringToHex, hue2rgb, RESET, FONT_STYLE, STYLE
 }
 
 /**
  * For the conversion with to-esm, the named export and the function to export must use the same identifier.
  * Otherwise, the conversion will fail.
  */
+
+
+
 
 
 
