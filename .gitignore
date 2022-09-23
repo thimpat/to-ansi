@@ -123,3 +123,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# To generate index.mjs, do:
+# $> to-esm index.cjs --config=.to-esm.cjs
+/index.mjs

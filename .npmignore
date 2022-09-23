@@ -171,4 +171,4 @@ bump.js
 /.nycrc
 examples/
 docs/
-
+/.to-esm.cjs
