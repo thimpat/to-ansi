@@ -21,7 +21,9 @@
   ],
   "scripts": {
     "test": "nyc mocha",
-    "build:all": "to-esm index.cjs --config=.to-esm.cjs --update-all"
+    "generate:esm": "to-esm index.cjs --config=.to-esm.cjs --update-all",
+    "generate:dts": "tsc index.mjs --declaration --allowJs --emitDeclarationOnly --outDir .",
+    "build:all": "npm run generate:esm && npm run generate:dts"
   },
   "author": "Patrice THIMOTHEE",
   "license": "MIT",
@@ -42,10 +44,15 @@
     "babel-eslint": "^10.1.0",
     "chai": "^4.3.6",
     "chai-almost": "^1.0.1",
+    "clonefile": "^3.7.2",
     "eslint": "^8.9.0",
-    "mocha": "^9.2.0",
+    "mocha": "^10.2.0",
     "nyc": "^15.1.0",
+    "rename": "^1.0.4",
     "semantic-release": "^19.0.2",
-    "to-esm": "^2.23.2"
+    "to-esm": "^2.27.2"
+  },
+  "dependencies": {
+    "@types/node": "^18.11.18"
   }
 }
