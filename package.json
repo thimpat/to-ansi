@@ -2,15 +2,21 @@
   "name": "to-ansi",
   "version": "1.0.3",
   "description": "Convert HTML, RGB or HSL to ANSI",
-  "main": "index.cjs",
+  "main": "index.mjs",
   "module": "index.mjs",
   "type": "module",
+  "typings": "index.d.mts",
   "exports": {
     ".": {
       "require": "./index.cjs",
       "import": "./index.mjs"
     }
   },
+  "files": [
+    "index.d.mts",
+    "index.mjs",
+    "index.cjs"
+  ],
   "keywords": [
     "color",
     "convert colors",
