@@ -1,3 +1,4 @@
+// ----------------------------------------------------
 /**
  * Colorizer for terminals
  * @author Patrice Thimothee
@@ -563,9 +564,19 @@ function getTextFromRgb(text, {
     return getTextFromAnsi(text, {fg, bg, isUnderline, isBold, isReversed});
 }
 
+/**
+ *
+ * @param text
+ * @param fg
+ * @param bg
+ * @param isUnderline
+ * @param isBold
+ * @param isReversed
+ * @returns {*}
+ */
 function getTextFromHsl(text, {
-    fg = "",
-    bg = "",
+    fg = {},
+    bg = {},
     isUnderline = false,
     isBold = false,
     isReversed = false
